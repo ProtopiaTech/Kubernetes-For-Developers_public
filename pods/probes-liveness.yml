@@ -1,0 +1,19 @@
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: probes-liveness
+  labels:
+    name: probes-liveness
+spec:
+  restartPolicy: Never
+  containers:
+  - name: main
+    image: busybox
+    command: ['sh', '-c', 'while true; do echo $(date +%s): BEEP >> /loap/timing.txt; sleep 5; done;']
+    livenessProbe:
+      exec:
+        command: ['sh', '-c', 'echo $(date +%s): LIVENESS >> /tmp/timing.txt; exit 1']
+    readinessProbe:
+      exec:
+        command: ['sh', '-c', 'echo $(date +%s): READINESS >> /tmp/timing.txt;']
