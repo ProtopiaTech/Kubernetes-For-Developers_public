@@ -22,7 +22,7 @@ data:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: configmap-demo-pod
+  name: tools
 spec:
   containers:
     - name: tools
