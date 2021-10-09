@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: helloconfigmaps
+data:
+  # property-like keys; each key maps to a simple value
+  key1: "Env variable OK"
+  key2: "key 2 value"
+
+  # file-like keys
+  file-key3.value: |
+    Multi
+    Line
+    File
+    OK!    
+  file-key4: |
+    key4=purple
+    color.bad=yellow
+
+
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-demo-pod
+spec:
+  containers:
+    - name: tools
+      image: giantswarm/tiny-tools
+      command: ["sleep", "3600"]
+      resources: {}
+      env:
+        - name : INSIDE_CONTIANER_ENVIRONMENT_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: NAME_OF_THE_CONFIG_MAP
+              key: NAME_OF_THE_KEY
+      volumeMounts:
+      - name: NAME_OF_THE_VOLUME
+        mountPath: "/PATH_TO_DIR_WHERE_TO_MOUNT"
+        readOnly: true
+  volumes:
+    # You set volumes at the Pod level, then mount them into containers inside that Pod
+    - name: NAME_OF_THE_VOLUME
+      configMap:
+        # Provide the name of the ConfigMap you want to mount.
+        name: NAME_OF_THE_CONFIGMAP
+        # An array of keys from the ConfigMap to create as files
+        items:
+        - key: "CONFIGMAP_KEY"
+          path: "FILE_WHERE_TO_MOUNT_THE_VALUE"
