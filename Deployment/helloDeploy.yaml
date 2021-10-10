@@ -1,0 +1,13 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: helloapp-dep
+spec:
+  replicas: NUMBER_OF_PODS_TO_CREATE
+  selector:
+    HOW_DEPLOYED_PODS_CAN_BE_SELECTED
+#    matchLabels:
+#      key : value
+  template:
+    POD_CONFIG
+    
