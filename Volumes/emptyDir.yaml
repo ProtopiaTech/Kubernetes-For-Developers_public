@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: empty-pod
+  labels:
+    name: empty-pod
+spec:
+  
+  containers:
+  - name: tools2
+    image: giantswarm/tiny-tools
+    resources: {}
+    command: ["/bin/sh"]
+    args: ["-c", "sleep 3600"]
+    volumeMounts:
+    - name: NAME_OF_THE_VOLUME
+      mountPath: ABSOLUTE_PATH
