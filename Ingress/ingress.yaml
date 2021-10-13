@@ -79,17 +79,10 @@ spec:
   - host: HOST_NAME_THAT_INGRESS_WILL_REACT_TO
     http:
       paths:
-      - # path: /tea
-        # pathType: Prefix
+      - # path: /
+        # pathType: 
         # backend:
         #   service:
         #     name: 
         #     port:
-        #       number: 
-      - path: /coffee
-        pathType: Prefix
-        backend:
-          service:
-            name: coffee-svc
-            port:
-              number: 80
+        #       number:
